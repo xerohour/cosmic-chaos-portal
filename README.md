@@ -81,6 +81,25 @@ RECEIVED -> VALIDATING -> PLANNING -> RUNNING -> AGGREGATING
 - Consent is executable: routing and language choices reflect stored grants.
 - Confidence is a ranking aid, never a probability of spiritual truth.
 
+## Deployment — interactive web demo
+
+A fully client-side port of the Archon engine lives in `web/`:
+open `web/index.html` (or serve it) and run readings in the browser —
+no backend, no dependencies. It mirrors the Python core: the Archon state
+machine, safety gates (crisis escalation, substance/neural blocks), tag-based
+routing with consent intersection, all six specialists, and the final
+safety review.
+
+- **GitHub Pages:** https://xerohour.github.io/cosmic-chaos-portal/
+  Deploys automatically from `web/` on every push to `main` via
+  `.github/workflows/pages.yml`. One-time setup: in the repo's
+  **Settings → Pages**, set **Source** to **GitHub Actions**.
+  (Pages on a private repo needs GitHub Pro — making the repo public
+  works too.)
+- **Vercel:** import the repository at vercel.com — `vercel.json` serves
+  `web/` as a static site automatically (outputDirectory `web`,
+  cleanUrls on).
+
 ## What's next (Increment 2+)
 
 - FastAPI service boundary (`POST /v1/sessions/...`) + PostgreSQL/Redis

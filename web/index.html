@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cosmic Chaos Portal — Client-Side Archon Demo</title>
+<meta name="description" content="A fully client-side demo of the Cosmic Chaos Portal: the Archon orchestrator convenes six specialist agents and synthesizes a safety-gated reflective reading.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="nebula" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="brand">
+    <svg class="sigil" viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="29" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M32 6 L36 26 L56 30 L36 34 L32 54 L28 34 L8 30 L28 26 Z" fill="currentColor" opacity="0.85"/>
+      <circle cx="32" cy="32" r="6" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+    <div>
+      <h1>Cosmic Chaos Portal</h1>
+      <p class="tagline">Client-side Archon demo &middot; multi-agent ritual AI, safety-gated</p>
+    </div>
+  </div>
+  <p class="privacy-note">Runs entirely in your browser. Nothing is sent anywhere.</p>
+</header>
+
+<main>
+  <section class="panel form-panel" aria-labelledby="intention-heading">
+    <h2 id="intention-heading">Set your intention</h2>
+
+    <label class="field">
+      <span class="label">Intention</span>
+      <textarea id="intention" rows="3" maxlength="500"
+        placeholder="What question are you carrying? e.g. Why do I keep sabotaging good relationships when they start getting serious?"></textarea>
+    </label>
+
+    <div class="row">
+      <label class="field">
+        <span class="label">Name <em>(optional, for numerology)</em></span>
+        <input id="display-name" type="text" maxlength="80" autocomplete="off" placeholder="Your name">
+      </label>
+      <label class="field">
+        <span class="label">Birth date <em>(for sun-sign &amp; life path)</em></span>
+        <input id="birthdate" type="date" min="1900-01-01" max="2026-09-15">
+      </label>
+    </div>
+
+    <fieldset class="field">
+      <legend>Life areas <em>(the Archon routes agents from these)</em></legend>
+      <div class="chips" id="tag-chips" role="group" aria-label="Life area tags">
+        <button type="button" data-tag="shadow_work" aria-pressed="true">Shadow work</button>
+        <button type="button" data-tag="relationship" aria-pressed="true">Relationship</button>
+        <button type="button" data-tag="career" aria-pressed="false">Career</button>
+        <button type="button" data-tag="decision" aria-pressed="false">Decision</button>
+        <button type="button" data-tag="purpose" aria-pressed="false">Purpose</button>
+        <button type="button" data-tag="timing" aria-pressed="false">Timing</button>
+        <button type="button" data-tag="grief" aria-pressed="false">Grief</button>
+        <button type="button" data-tag="creativity" aria-pressed="false">Creativity</button>
+        <button type="button" data-tag="reflection" aria-pressed="false">Reflection</button>
+      </div>
+    </fieldset>
+
+    <fieldset class="field">
+      <legend>Consent <em>(executable: it changes what the Archon may run)</em></legend>
+      <div class="consents">
+        <label><input type="checkbox" id="consent-spiritual" checked> Spiritual language</label>
+        <label><input type="checkbox" id="consent-birth" checked> Use my birth date</label>
+        <label><input type="checkbox" id="consent-trauma"> Trauma-adjacent content <span class="sub">enables the Shamanic guide</span></label>
+        <label><input type="checkbox" id="consent-altered"> Guided-state content <span class="sub">enables the Gateway sessions</span></label>
+      </div>
+    </fieldset>
+
+    <div class="row actions">
+      <button id="invoke" class="invoke" type="button">Open the Portal</button>
+      <button id="reset" class="ghost" type="button">Clear</button>
+    </div>
+    <p class="hint">Deterministic engine: the same intention always draws the same cards. The seed is shown with each reading.</p>
+  </section>
+
+  <section class="panel stage-panel" aria-labelledby="working-heading" aria-live="polite">
+    <h2 id="working-heading">The working</h2>
+    <ol class="stages" id="stages">
+      <li data-stage="received">Received</li>
+      <li data-stage="validating">Validating</li>
+      <li data-stage="planning">Planning</li>
+      <li data-stage="running">Divination</li>
+      <li data-stage="aggregating">Aggregating</li>
+      <li data-stage="synthesizing">Synthesizing</li>
+      <li data-stage="safety">Safety review</li>
+      <li data-stage="done">Complete</li>
+    </ol>
+    <div id="portal-output" class="output">
+      <div class="idle-card">
+        <p>The portal is quiet. Set an intention above and the Archon will convene its specialists.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel arch" aria-labelledby="arch-heading">
+    <h2 id="arch-heading">Architecture</h2>
+    <p>
+      This page is a self-contained port of the Cosmic Chaos Portal core
+      (<code>src/ccp/</code>). One <strong>Archon</strong> orchestrator owns the
+      state machine; six <strong>specialist agents</strong> run beneath it and
+      never coordinate with each other or publish directly.
+    </p>
+    <ol class="pipeline">
+      <li><strong>Validate</strong> &mdash; the intention is checked before anything runs.</li>
+      <li><strong>Safety gate</strong> &mdash; crisis language short-circuits to human-support resources; substance facilitation and neural-device guidance are blocked outright.</li>
+      <li><strong>Plan</strong> &mdash; life-area tags map to specialists, intersected with your consent. The Integration agent is always anchored.</li>
+      <li><strong>Divine</strong> &mdash; specialists run in parallel under a time budget; every one is deterministic.</li>
+      <li><strong>Aggregate</strong> &mdash; each result passes a content check; violating results are dropped.</li>
+      <li><strong>Synthesize</strong> &mdash; themes are deduped and confidence-ranked with provenance; spiritual or plain voice follows your consent.</li>
+      <li><strong>Safety review</strong> &mdash; the final gate strips medical claims, substance mentions, and certainty language, and attaches the uncertainty frame.</li>
+    </ol>
+    <div class="agents-grid">
+      <article><h3>Tarot</h3><p>Seeded major-arcana spreads; symbolic narrative keyed to archetypes and positions.</p></article>
+      <article><h3>Astrology</h3><p>Real sun-sign math from the birth date; element-keyed symbolic lens only.</p></article>
+      <article><h3>Numerology</h3><p>Real Pythagorean life path, expression, and soul urge numbers.</p></article>
+      <article><h3>Shamanic guide</h3><p>Journey metaphor and a small grounded ritual; trauma-adjacent consent required.</p></article>
+      <article><h3>Gateway</h3><p>Guided breathing and session structures; strictly non-drug.</p></article>
+      <article><h3>Integration</h3><p>The harm-reduction anchor: grounding, reflection, and professional referrals.</p></article>
+    </div>
+    <p class="caveat">
+      Symbols suggest; they never decide. This is a reflective mirror, not a
+      prediction, diagnosis, or treatment &mdash; and it never facilitates
+      controlled substances.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>Cosmic Chaos Portal &middot; client-side demo of the open architecture in <code>src/ccp/</code>.
+     If you are in crisis, call or text <strong>988</strong> (US) or visit <strong>findahelpline.org</strong>.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
